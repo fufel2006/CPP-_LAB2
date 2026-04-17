@@ -1,4 +1,6 @@
-#include "Header.h"
+#include "Eq.h"
+#include "Student.h"
+#include "Examiner.h"
 #include <cmath>
 
 const double EPS = 1e-6;

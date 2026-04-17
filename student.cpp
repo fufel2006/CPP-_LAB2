@@ -1,20 +1,19 @@
-#include "Header.h"
+#include "Eq.h"
+#include "Student.h"
+#include "Examiner.h"
 #include <cstdlib>
 
 Student::Student(std::string name) : id(name) {}
-
 std::string Student::getId() const {
     return id;
 }
 
 Good::Good(std::string name) : Student(name) {}
-
 Message Good::process(const Eq& eq) {
     return { id, eq, eq.getRoots() };
 }
 
 Mid::Mid(std::string name) : Student(name) {}
-
 Message Mid::process(const Eq& eq) {
     auto correct = eq.getRoots();
     double p = (std::rand() % 100) / 100.0;
@@ -30,7 +29,6 @@ Message Mid::process(const Eq& eq) {
 }
 
 Bad::Bad(std::string name) : Student(name) {}
-
 Message Bad::process(const Eq& eq) {
     return { id, eq, {0, 0} };
 }

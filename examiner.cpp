@@ -1,39 +1,40 @@
-#include "Header.h"
 #include <iostream>
+#include <cmath>
+#include "Examiner.h"
 
-Examiner::Examiner(int maxSize) {
-    capacity = maxSize;
-    storage = new Message[capacity];
-    count = 0;
-    totalStudents = 0;
-    for (int i = 0; i < 10; i++) {
-        results[i] = 0;
-    }
+const double EPS = 1e-6;
+
+Examiner::Examiner() {}
+bool Examiner::isEqual(double x, double y) {
+    return std::fabs(x - y) < EPS;
 }
-
-Examiner::~Examiner() {
-    delete[] storage;
+bool Examiner::sameRoots(std::pair<double, double> a,
+    std::pair<double, double> b) {
+    return (isEqual(a.first, b.first) &&
+        isEqual(a.second, b.second)) ||
+        (isEqual(a.first, b.second) &&
+            isEqual(a.second, b.first));
 }
-
 void Examiner::add(Message msg) {
-    if (count >= capacity) return;
-    storage[count++] = msg;
-    bool exists = false;
-    for (int i = 0; i < totalStudents; i++) {
+    storage.push_back(msg);
+    bool found = false;
+    for (size_t i = 0; i < names.size(); i++) {
         if (names[i] == msg.name) {
-            exists = true;
+            found = true;
             break;
         }
     }
-    if (!exists) {
-        names[totalStudents++] = msg.name;
+    if (!found) {
+        names.push_back(msg.name);
+        results.push_back(0);
     }
 }
 
 void Examiner::evaluate() {
-    for (int i = 0; i < count; i++) {
-        if (sameRoots(storage[i].roots, storage[i].eq.getRoots())) {
-            for (int j = 0; j < totalStudents; j++) {
+    for (size_t i = 0; i < storage.size(); i++) {
+        auto real = storage[i].eq.getRoots();
+        if (sameRoots(storage[i].roots, real)) {
+            for (size_t j = 0; j < names.size(); j++) {
                 if (names[j] == storage[i].name) {
                     results[j]++;
                     break;
@@ -45,7 +46,10 @@ void Examiner::evaluate() {
 
 void Examiner::print() {
     std::cout << "\nResults:\n";
-    for (int i = 0; i < totalStudents; i++) {
-        std::cout << names[i] << " -> " << results[i] << std::endl;
+    for (size_t i = 0; i < names.size(); i++) {
+        std::cout << names[i]
+            << " -> "
+            << results[i]
+            << std::endl;
     }
 }
