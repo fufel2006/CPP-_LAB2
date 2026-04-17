@@ -30,3 +30,5 @@ cmake-build-*/
 *.log
 *.tmp
 *.cache
+/.vs/slnx.sqlite
+/.vs/CPP-_LAB2/v17/Browse.VC.db
