@@ -40,3 +40,7 @@ Makefile
 # OS files
 .DS_Store
 Thumbs.db
+/.vs/CPP-_LAB2/v17/.wsuo
+/.vs/CPP-_LAB2/v17/Browse.VC.db
+/.vs/CPP-_LAB2/v17/Browse.VC.db-shm
+/.vs/CPP-_LAB2/v17/Browse.VC.db-wal
